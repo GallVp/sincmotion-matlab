@@ -7,7 +7,7 @@ clc
 %% Constants
 FS                              = 100;
 IS_ANDROID                      = 0;                % ANDROID=0, else IOS
-DEBUG_FLAG                      = 0;                % 0, 1, 2, 3
+DEBUG_FLAG                      = 3;                % 0, 1, 2, 3
 PERSON_HEIGHT                   = 1.52;             % Meters
 
 %% Load data
