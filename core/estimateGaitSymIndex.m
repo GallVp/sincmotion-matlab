@@ -19,15 +19,15 @@ arAP(arAP<0)                = 0;
 arVert(arVert<0)            = 0;
 
 cStep                       = sqrt(arML+arAP+arVert);
-[locAmps, locs]             = findpeaks(cStep);
+[cStepPeakAmps, cStepPeaks] = findpeaks(cStep);
 
 % Trying three methods to select the most appropriate peak
 cStepLows                   = find(cStep <= 0.25*sqrt(3));
 validityStart               = cStepLows(1);
 
-pLocs                       = locs(locs > 2*validityStart);
-[~, tStrideAI]              = max(cStep(pLocs));
-tStrideA                    = pLocs(tStrideAI);
+validLocations              = cStepPeaks(cStepPeaks > 2*validityStart);
+[~, tStrideAI]              = max(cStep(validLocations));
+tStrideA                    = validLocations(tStrideAI);
 tStepA                      = round(tStrideA*0.5);
 
 if(tStepA < validityStart)
@@ -39,8 +39,8 @@ end
 
 atLocB                      = estimateStrideIndex(accelMLxAPxVert(:, 3),...
                                 arVert, fs, debugFlag);
-[~, tStrideIB]              = min(abs(locs-atLocB));
-tStrideB                    = locs(tStrideIB);
+[~, tStrideIB]              = min(abs(cStepPeaks-atLocB));
+tStrideB                    = cStepPeaks(tStrideIB);
 tStepB                      = round(tStrideB*0.5);
 if(tStepB < validityStart)
     valueB                  = 0;
@@ -48,8 +48,8 @@ else
     valueB                  = cStep(tStepB) / sqrt(3);
 end
 
-[~, tStrideCI]              = max(locAmps);
-tStrideC                    = locs(tStrideCI);
+[~, tStrideCI]              = max(cStepPeakAmps);
+tStrideC                    = cStepPeaks(tStrideCI);
 tStepC                      = round(tStrideC*0.5);
 if(tStepC < validityStart)
     valueC                  = 0;

@@ -36,8 +36,8 @@ hsLeft                      = [];
 hsRight                     = [];
 
 for i=2:length(initialContacts)
-    H                       = d(initialContacts(i-1):initialContacts(i));
-    hs(i-1)                 = max(H) - (H(1) + H(end))/2;
+    dValues                 = d(initialContacts(i-1):initialContacts(i));
+    hs(i-1)                 = max(dValues) - (dValues(1) + dValues(end))/2;
     
     if isLeftIC(i)
         hsLeft              = [hsLeft, hs(i-1)];

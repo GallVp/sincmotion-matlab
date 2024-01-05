@@ -1,4 +1,4 @@
-function accelMLxAPxVert        = preprocessGnBStaticStream(accelData,...
+function filteredAccelMLxAPxVert= preprocessGnBStaticStream(accelData,...
                                     rotData, fs, isAndroid)
 
 %% Convert acceleration units to m/sec/sec
@@ -11,35 +11,13 @@ if isAndroid
 end
 
 %% Correct for orientation <X-ML, Y-AP, Z-Verticle>
-if isAndroid
-    accelDataRotated            = accelData;
-    initialToReference          = quat2rotm(rotData(1, :));
-    referenceToInitial          = initialToReference';
-    gUser                       = accelDataRotated(1, :);
-    zVector                     = -gUser;
-    initialToXArbitZVerticle    = gravity2rotm(zVector);
-    referenceToXArbitZVerticle  = initialToXArbitZVerticle * referenceToInitial;
-    
-    for i=1:length(accelDataRotated)
-        frameToReference        = quat2rotm(rotData(i, :));
-        frameToToXArbitZVerticle= referenceToXArbitZVerticle * frameToReference;
-        correctedSample         = frameToToXArbitZVerticle*(accelDataRotated(i,:)');
-        accelDataRotated(i,:)   = correctedSample;
-    end
-else
-    accelDataRotated = accelData;
-    for i=1:length(accelDataRotated)
-        rotMat                  = quat2rotm(rotData(i, :));
-        correctedSample         = rotMat*(accelDataRotated(i,:)');
-        accelDataRotated(i,:)   = correctedSample;
-    end
-end
+filteredAccelMLxAPxVert         = applyGnBFrameCorrection(accelData,...
+                                    rotData, fs, isAndroid);
 
-
-% Filter Data
-paddedData                      = [flip(accelDataRotated(1:10*fs, :));...
-                                    accelDataRotated;...
-                                    flip(accelDataRotated(end-10*fs+1:end, :))];
+%% Filter Data
+paddedData                      = [flip(filteredAccelMLxAPxVert(1:10*fs, :));...
+                                    filteredAccelMLxAPxVert;...
+                                    flip(filteredAccelMLxAPxVert(end-10*fs+1:end, :))];
 pFilteredData                   = filterStream(paddedData, fs, 2, 45, 0.3, 1);
-accelMLxAPxVert                 = pFilteredData(10*fs+1:end-10*fs, :);
+filteredAccelMLxAPxVert         = pFilteredData(10*fs+1:end-10*fs, :);
 end
