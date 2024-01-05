@@ -6,7 +6,7 @@ clc
 
 %% Constants
 FS                              = 100;
-IS_ANDROID                      = 0;                % ANDROID=1, else IOS
+IS_ANDROID                      = 1;                % ANDROID=1, else IOS
 
 %% Load data
 [accelData,...

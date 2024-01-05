@@ -2,9 +2,9 @@ function accelMLxAPxVert            = applyGnBFrameCorrection(accelData,...
                                         rotData, fs, isAndroid)
 if isAndroid
     accelMLxAPxVert                 = accelData;
-    % Use the quiet period from the initial 2 sec segment as reference
-    initialToReference              = quat2rotm(median(...
-                                        rotData(fs+1:(1.5*fs), :)));
+    % Use the quiet period from the initial 1 to 1.5 segment as reference
+    initialSegment                  = median(rotData(fs+1:(1.5*fs), :));
+    initialToReference              = quat2rotm(initialSegment);
     referenceToInitial              = initialToReference';
     gUser                           = accelMLxAPxVert(1, :);
     zVector                         = -gUser;

@@ -1,15 +1,17 @@
 function [value, tStride]   = estimateGaitSymIndex(accelMLxAPxVert,...
                                 fs, debugFlag)
 
+accelSignalLen              = length(accelMLxAPxVert(:, 1));
 fs4                         = fs*4;
+lenForAcf                   = min(fs4, accelSignalLen-1);
 
 figure;
 arML                        = acf(accelMLxAPxVert(:, 1),...
-                                min(fs4, length(accelMLxAPxVert(:, 1))-1));
+                                lenForAcf);
 arAP                        = acf(accelMLxAPxVert(:, 2),...
-                                min(fs4, length(accelMLxAPxVert(:, 2))-1));
+                                lenForAcf);
 arVert                      = acf(accelMLxAPxVert(:, 3),...
-                                min(fs4, length(accelMLxAPxVert(:, 3))-1));
+                                lenForAcf);
 
 g = gcf; % Dealing with internals of acf
 delete(g);
