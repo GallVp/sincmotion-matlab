@@ -8,17 +8,20 @@ clc
 TEST_TOL                        = 1e-10;
 FS                              = 100;
 IS_ANDROID                      = 1;                % ANDROID=1, else IOS
-SKIP_AT_RANDOM                  = 0;
+SKIP_AT_RANDOM                  = 1;
 SKIP_PERCENTAGE                 = 80;
 rng shuffle
 
 %% Validation data and outcomes
 %
-% The validation outcomes were originally produced
+% The validation outcomes for gait were originally produced
 % on Tue Jul 26 13:03:53 2022 +1200 and have not been published yet.
 %
+% The validation outcomes for static tasks were originally produced
+% on Sun Jan 7 15:06:47 2024 +1300 and have not been published yet.
+%
 % The raw data and the outcomes are not checked into version control due to
-% lask of permission from the Ethics Committee. 
+% lask of permission from the Ethics Committee.
 
 DATA_ROOT                       = fullfile('validation_data', 'android_navs');
 APP_DATA                        = fullfile(DATA_ROOT,...
@@ -31,7 +34,7 @@ GAIT_OUTCOMES                   = fullfile(DATA_ROOT,...
                                     'ComfortableGaitOutcomes_a1e4b14.csv');
 STATIC_OUTCOMES                 = fullfile(DATA_ROOT,...
                                     'data_tables',...
-                                    'StaticBalanceOutcomes_a1e4b14.csv');
+                                    'StaticBalanceOutcomes_ad2685f.csv');
 TEST_NO_MAP                     = [1 3 5]; % 1 => 1, 2 => 3, 3 => 5
 ADD_SPACE_FOR_PARTICIPANT       = [21 23 24];
 
@@ -44,6 +47,10 @@ for i=1:height(staticOutcomesTable)
 
     if caseOutcomes.Device{:} == 'Y'
         continue;               % Skip IOS case
+    end
+
+    if string(caseOutcomes.Qual{:}(end-1:end)) == "HT"
+        continue;               % Skip non-standard cases
     end
 
     fprintf('Processing %-10s %-2s for Part %-2d Test %-2d\n',...
@@ -79,9 +86,11 @@ for i=1:height(staticOutcomesTable)
     gyroData]                   = loadGnBExportedFile(FS,...
                                     fullfile(APP_DATA, dataFilePath));
 
-    expectedOutcomes            = -log([caseOutcomes.("MAA R"),...
-                                    caseOutcomes.("ROM ML"),...
-                                    caseOutcomes.("MAA AP")]);
+    expectedOutcomes            = [...
+                                    caseOutcomes.("Stability R"),...
+                                    caseOutcomes.("Stability ML"),...
+                                    caseOutcomes.("Stability AP")...
+                                    ];
     computedOutcomes            = estimateGnBStaticOutcomes(accelData,...
                                     rotData, FS, IS_ANDROID);
 
