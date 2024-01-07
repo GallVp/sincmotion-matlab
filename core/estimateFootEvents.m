@@ -21,13 +21,13 @@ if(sum(abs(diff(isLeftIC)))     ~= (length(isLeftIC) - 1))
     warning('Consecutive ICs are not from opposite sides. Applying pattern based correction.');
     candidateA                  = repmat([1;0], 20, 1);
     candidateB                  = repmat([0;1], 20, 1);
-    
+
     candidateA                  = candidateA(1:length(isLeftIC));
     candidateB                  = candidateB(1:length(isLeftIC));
-    
+
     errorA                      = sqrt(sum((candidateA - isLeftIC).^2));
     errorB                      = sqrt(sum((candidateB - isLeftIC).^2));
-    
+
     if errorA < errorB
         isLeftIC                = candidateA == 1;
     else
@@ -53,4 +53,3 @@ if debugFlag > 1
     title('ICs (o) and FCs (x)')
 end
 end
-

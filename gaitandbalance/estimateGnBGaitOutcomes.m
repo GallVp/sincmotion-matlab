@@ -19,7 +19,7 @@ leftStepTimes                       = cell(4, 1);
 rightStepTimes                      = cell(4, 1);
 
 for i = 1:4
-    
+
     % iOS Reference: https://developer.apple.com/documentation/coremotion/getting_processed_device-motion_data/understanding_reference_frames_and_device_attitude
     % Android Reference: https://developer.android.com/guide/topics/sensors/sensors_overview
     [accelMLxAPxVert,...
@@ -28,13 +28,13 @@ for i = 1:4
                                         rotSegments{i},...
                                         gyroSegments{i},...
                                         fs, isAndroid);
-    
+
     gyroAboutAP                     = processedGyroData(:, 3);
     % For iOS and Android, Z is the intrinsic AP axis. Counter clock-wise
     % rotations are positive. Thus, positive gyro angles correspond to
     % right swing phase. At the right heel strike the phone is at its
     % counter-clockwise peak.
-    
+
     [symIndex(i), ...
         stepLengths{i},...
         leftStepLengths{i},...
@@ -66,7 +66,7 @@ stdStepTimeRight                    = iqr([rightStepTimes{:}])/1.35;
 
     function varPer                 = computeVarPer(leftValue, ...
                                         rightValue, meanValue)
-        
+
         sqSum                       = leftValue^2 + rightValue^2;
         rmsValue                    = sqrt(sqSum / 2);
         varPer                      = rmsValue / meanValue * 100;
@@ -74,7 +74,7 @@ stdStepTimeRight                    = iqr([rightStepTimes{:}])/1.35;
 
     function asymPer                = computeAsymPer(leftValue,...
                                         rightValue, meanValue)
-        
+
         asymPer                     = abs(leftValue - rightValue)...
                                         / meanValue * 100;
     end

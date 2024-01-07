@@ -16,4 +16,3 @@ if isAndroid
     gyroData                    = gyroData((2*fs)+1:end, :);
 end
 end
-

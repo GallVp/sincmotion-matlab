@@ -38,4 +38,3 @@ stepTimes                       = diff(initialContacts)./fs;
 leftStepTimes                   = stepTimes(isLeftIC(2:end));
 rightStepTimes                  = stepTimes(~isLeftIC(2:end));
 end
-

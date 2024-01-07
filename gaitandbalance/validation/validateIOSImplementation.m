@@ -17,13 +17,13 @@ rng shuffle
 % The validation outcomes were originally produced
 % on Mon Aug 23 12:21:20 2021 +0500 and published here:
 %
-% Rashid, U.; Barbado, D.; Olsen, S.; Alder, G.; Elvira, J.L.L.; 
-% Lord, S.; Niazi, I.K.; Taylor, D. Validity and Reliability of a 
-% Smartphone App for Gait and Balance Assessment. Sensors 2022, 22, 
+% Rashid, U.; Barbado, D.; Olsen, S.; Alder, G.; Elvira, J.L.L.;
+% Lord, S.; Niazi, I.K.; Taylor, D. Validity and Reliability of a
+% Smartphone App for Gait and Balance Assessment. Sensors 2022, 22,
 % 124. https://doi.org/10.3390/s22010124
 %
 % The raw data and the outcomes are not checked into version control due to
-% lask of permission from the Ethics Committee. 
+% lask of permission from the Ethics Committee.
 
 DATA_ROOT                       = fullfile('validation_data', 'ios_savs');
 APP_DATA                        = fullfile(DATA_ROOT,...
@@ -69,7 +69,7 @@ for i=1:height(staticOutcomesTable)
     timeVect,...
     gyroData]                   = loadGnBExportedFile(FS,...
                                     fullfile(APP_DATA, dataFilePath));
-    
+
     expectedOutcomes            = -log([caseOutcomes.("MAA R"),...
                                     caseOutcomes.("ROM ML"),...
                                     caseOutcomes.("MAA AP")]);
@@ -79,7 +79,7 @@ for i=1:height(staticOutcomesTable)
     condition                   = all(...
                                     (expectedOutcomes - computedOutcomes)...
                                     < TEST_TOL);
-    
+
     if condition
         disp('.....................................Passed');
     else
@@ -126,7 +126,7 @@ for i=1:height(gaitOutcomesTable)
     personHeight                = table2array(participantTable(...
                                     participantTable.Part == caseOutcomes.Part,...
                                     'Height')) / 100;
-    
+
     computedOutcomes            = estimateGnBGaitOutcomes(timeVect,...
                                     accelData,...
                                     rotData,...
@@ -158,7 +158,7 @@ for i=1:height(gaitOutcomesTable)
                                     expectedOutcomes...
                                     - comparableComputedOutcomes)...
                                     < TEST_TOL);
-    
+
     if condition
         disp('.....................................Passed');
     else

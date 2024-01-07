@@ -2,15 +2,15 @@ function [accelData, rotData, timeVect, gyroData] = loadGnBExportedFile(fs, file
 
 
 if nargin < 2
-    
+
     % File selection
     [fileName, folderName]  = uigetfile('*.csv', 'Pick a CSV file exported from innerEar');
-    
+
     % Load Data
     fileData                = importGnBExportedFile(fullfile(folderName, fileName));
-    
+
 else
-    
+
     % Load Data
     fileData                = importGnBExportedFile(filePath);
 end
@@ -27,4 +27,3 @@ timeVect                    = fileData.Timestamp;
 gyroData                    = [fileData.GyroX fileData.GyroY fileData.GyroZ];
 
 end
-

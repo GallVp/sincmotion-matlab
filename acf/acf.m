@@ -1,6 +1,6 @@
 function ta = acf(y,p)
 % ACF - Compute Autocorrelations Through p Lags
-% >> myacf = acf(y,p) 
+% >> myacf = acf(y,p)
 %
 % Inputs:
 % y - series to compute acf for, nx1 column vector
@@ -14,7 +14,7 @@ function ta = acf(y,p)
 % A bar graph of the autocorrelations is also produced, with
 % rejection region bands for testing individual autocorrelations = 0.
 %
-% Note that lag 0 autocorelation is not computed, 
+% Note that lag 0 autocorelation is not computed,
 % and is not shown on this graph.
 %
 % Example:
@@ -35,13 +35,13 @@ end
 % BEGIN CODE
 % -------------
 ta = zeros(p,1) ;
-global N 
+global N
 N = max(size(y)) ;
-global ybar 
-ybar = mean(y); 
+global ybar
+ybar = mean(y);
 % Collect ACFs at each lag i
 for i = 1:p
-   ta(i) = acf_k(y,i) ; 
+   ta(i) = acf_k(y,i) ;
 end
 % Plot ACF
 % Plot rejection region lines for test of individual autocorrelations
@@ -79,7 +79,7 @@ function ta2 = acf_k(y,k)
 % Inputs:
 % y - series to compute acf for
 % k - which lag to compute acf
-% 
+%
 global ybar
 global N
 cross_sum = zeros(N-k,1) ;

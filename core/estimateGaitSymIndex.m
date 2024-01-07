@@ -86,21 +86,21 @@ end
 
     function strideIndex    = estimateStrideIndex(aVert, arVert, fs,...
                                 debugFlag)
-        
+
         [b, a]              = butter(2, 3/(fs/2), 'low');
         filteredData        = filtfilt(b,a, arVert);
-        
+
         [~, possibleLocs]   = findpeaks(filteredData);
-        
+
         cwt_scale           = 16;
         aVertInt            = cumsum(aVert./fs);
         dy                  = diff_cwtft(aVertInt', cwt_scale, 1/fs);
         [~, periodPeaks]    = findpeaks(-dy);
         period              = round(median(diff(periodPeaks))*2);
-        
+
         [~, strideIndexI]   = min(abs(possibleLocs-period));
         strideIndex         = possibleLocs(strideIndexI);
-        
+
         if debugFlag > 2
             figure;
             findpeaks(filteredData);
@@ -109,7 +109,6 @@ end
             hold off;
             title('Stride index estimated by method 2 of GSI')
         end
-        
+
     end
 end
-

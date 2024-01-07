@@ -7,4 +7,3 @@ stabilityAP                     = -log(mean(abs(accelMLxAPxVert(:, 2))));
 resultantVect                   = sqrt((accelMLxAPxVert.^2)*ones(3,1));
 stabilityR                      = -log(mean(abs(resultantVect)));
 end
-

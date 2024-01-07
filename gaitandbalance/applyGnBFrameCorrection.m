@@ -11,7 +11,7 @@ if isAndroid
     initialToXArbitraryZVertical    = androidGravity2RotMat(zVector);
     referenceToXArbitraryZVertical  = initialToXArbitraryZVertical *...
                                         referenceToInitial;
-    
+
     for i=1:length(accelMLxAPxVert)
         frameToReference            = quat2rotm(rotData(i, :));
         frameToXArbitraryZVertical  = referenceToXArbitraryZVertical *...

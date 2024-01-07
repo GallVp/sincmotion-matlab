@@ -17,4 +17,3 @@ vCross = [0 -v(3) v(2);v(3) 0 -v(1);-v(2) v(1) 0];
 
 userToRef = eye(3) + vCross + vCross^2 * (1 / (1+c));
 end
-
