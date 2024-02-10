@@ -1,0 +1,13 @@
+# submodules
+wavelib/
+
+# gitignore
+
+*.asv
+*.m~
+*.mex*
+octave-workspace
+data/*
+validation_data
+.Rhistory
+.DS_Store
