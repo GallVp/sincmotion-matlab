@@ -1,6 +1,6 @@
 # Provisioning `diff_cwtft`
 
-The below steps will only work on macOS and will require some changes before on Linux and MS Windows.
+The below steps will only work for macOS and will require some changes for Linux and MS Windows.
 
 ## Step 1: Build wavelib
 
@@ -17,7 +17,7 @@ git clean -fd
 git checkout .
 ```
 
-That builds the library and cleans auxiliary build files. To test, from the `wavelib` directory, do:
+`make` builds the library and `git clean` cleans auxiliary build files. To test the built library, from the `wavelib` directory, do:
 
 ```bash
 ./Bin/wavelibLibTests
