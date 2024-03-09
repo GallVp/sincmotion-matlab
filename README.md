@@ -25,7 +25,7 @@ Try the [gaitandbalance](./gaitandbalance) algorithms on [example data](./exampl
 
 ## Dependencies
 
-This library uses [rafat/wavelib](https://github.com/rafat/wavelib) for wavelet-based denoising. [rafat/wavelib] is implemented in C and must be compiled before usage. See [provisioning `diff_cwtft`](./diff_cwtft/README.md) for compilation instructions.
+This library uses [rafat/wavelib](https://github.com/rafat/wavelib) for wavelet-based denoising. rafat/wavelib is implemented in C and must be compiled before usage. See [provisioning `diff_cwtft`](./diff_cwtft/README.md) for compilation instructions.
 
 ## References
 
