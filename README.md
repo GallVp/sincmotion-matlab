@@ -1,5 +1,7 @@
 # SincMotion MATLAB
 
+[![cite](https://img.shields.io/badge/DOI-10.3390/s22010124-0f5fa5.svg)](https://doi.org/10.3390/s22010124)
+
 A MATLAB implementation of algorithms for gait and balance assessment using an inertial measurement unit. This library is a reference implementation of the [SincMotion](https://github.com/GallVp/sincmotion) Kotlin Multiplatform library.
 
 ## Library Structure
