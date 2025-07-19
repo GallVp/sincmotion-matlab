@@ -15,9 +15,10 @@ filteredAccelMLxAPxVert         = applyGnBFrameCorrection(accelData,...
                                     rotData, fs, isAndroid);
 
 %% Filter Data
-paddedData                      = [flip(filteredAccelMLxAPxVert(1:10*fs, :));...
+paddingSeconds                  = min(10, floor(height(accelData)/fs));
+paddedData                      = [flip(filteredAccelMLxAPxVert(1:paddingSeconds*fs, :));...
                                     filteredAccelMLxAPxVert;...
-                                    flip(filteredAccelMLxAPxVert(end-10*fs+1:end, :))];
+                                    flip(filteredAccelMLxAPxVert(end-paddingSeconds*fs+1:end, :))];
 pFilteredData                   = filterStream(paddedData, fs, 2, 45, 0.3, 1);
-filteredAccelMLxAPxVert         = pFilteredData(10*fs+1:end-10*fs, :);
+filteredAccelMLxAPxVert         = pFilteredData(paddingSeconds*fs+1:end-paddingSeconds*fs, :);
 end
